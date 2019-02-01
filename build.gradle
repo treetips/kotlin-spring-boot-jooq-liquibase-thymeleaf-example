@@ -1,0 +1,159 @@
+buildscript {
+  ext {
+    jdkVersion = getProperty("jdk.version")
+    kotlinVersion = getProperty("kotlin.version")
+    kotlinCoroutinesVersion = getProperty("kotlinx.coroutines.version")
+    springBootVersion = getProperty("spring.boot.version")
+    springCloudVersion = getProperty("spring.cloud.version")
+    mysqlConnectorJavaVersion = getProperty("mysql.connector.java.version")
+    commonsDbcp2Version = getProperty("commons.dbcp2.version")
+    awsSdkVersion = getProperty("aws.sdk.version")
+    thymeleafLayoutDialectVersion = getProperty("thymeleaf.layout.dialect.version")
+    thymeleafExtrasSpringsecurity5Version = getProperty("thymeleaf.extras.springsecurity5.version")
+  }
+  repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://repo.spring.io/libs-snapshot' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+//    maven {
+//      url 'https://oss.sonatype.org/content/repositoriesorg.jetbrains.kotlinx.kotlinx-coroutines-core/snapshots/'
+//    }
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+    classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+  }
+}
+
+apply plugin: 'maven'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = jdkVersion
+
+allprojects {
+  apply plugin: 'maven'
+  apply plugin: 'java'
+  apply plugin: 'kotlin'
+  apply plugin: 'kotlin-spring'
+  apply plugin: 'idea'
+  apply plugin: 'org.springframework.boot'
+  apply plugin: 'io.spring.dependency-management'
+
+  repositories {
+    mavenCentral()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+  }
+
+  dependencies {
+    // kotlin
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${kotlinCoroutinesVersion}")
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // spring boot
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-cache:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-redis-reactive:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-jooq:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+    // spring
+    compile("org.springframework.session:spring-session-data-redis:${springBootVersion}")
+    // cloud
+    compile("org.springframework.cloud:spring-cloud-starter-aws:${springCloudVersion}")
+    // datasource
+    compile("org.apache.commons:commons-dbcp2:${commonsDbcp2Version}")
+    // aws sdk
+    compile("com.amazonaws:aws-java-sdk-sts:${awsSdkVersion}")
+    compile("com.amazonaws:aws-java-sdk-s3:${awsSdkVersion}")
+    compile("com.amazonaws:aws-java-sdk-ses:${awsSdkVersion}")
+    // template engine
+    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutDialectVersion}")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity5:${thymeleafExtrasSpringsecurity5Version}")
+    // driver
+    runtime("mysql:mysql-connector-java:${mysqlConnectorJavaVersion}")
+    // database migration
+    compile("org.liquibase:liquibase-core")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("io.projectreactor:reactor-test")
+    testCompile("org.springframework.security:spring-security-test")
+  }
+
+  configurations {
+    all*.exclude module: 'slf4j-jdk12'
+    all*.exclude module: 'slf4j-jdk14'
+    all*.exclude module: 'commons-logging'
+    all*.exclude module: 'log4j'
+  }
+
+  compileKotlin {
+    kotlinOptions {
+      freeCompilerArgs = ["-Xjsr305=strict"]
+      jvmTarget = "1.8"
+    }
+  }
+  compileTestKotlin {
+    kotlinOptions {
+      freeCompilerArgs = ["-Xjsr305=strict"]
+      jvmTarget = "1.8"
+    }
+  }
+}
+
+project(':database') {
+  bootJar.enabled = false
+  jar.enabled = true
+}
+
+project(':base') {
+  dependencies {
+    compile project(':database')
+  }
+  bootJar.enabled = false
+  jar.enabled = true
+}
+
+project(':api') {
+  dependencies {
+    compile project(':base')
+  }
+  bootJar {
+    launchScript()
+  }
+}
+
+project(':batch') {
+  dependencies {
+    compile project(':base')
+    compile('org.springframework.boot:spring-boot-starter-batch')
+    testCompile('org.springframework.batch:spring-batch-test')
+  }
+  bootJar {
+    launchScript()
+  }
+}
+
+project(':admin') {
+  dependencies {
+    compile project(':base')
+  }
+  bootJar {
+    launchScript()
+  }
+}

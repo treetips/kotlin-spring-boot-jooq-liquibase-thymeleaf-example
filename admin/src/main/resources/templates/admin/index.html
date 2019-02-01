@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{common/layout.html}">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Thymeleaf3 example !!</title>
+</head>
+<body>
+
+<div layout:fragment="contents">
+  <h1>Admin TOP</h1>
+
+  <p>org.springframework.security.core.Authentication information.</p>
+  <table border="1">
+    <tr>
+      <th>name</th>
+      <td>
+        <div sec:authentication="name"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>credentials</th>
+      <td>
+        <div sec:authentication="credentials"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>details</th>
+      <td>
+        <div sec:authentication="details"></div>
+      </td>
+    </tr>
+  </table>
+
+  <p>com.example.base.model.UserModel(implements UserDetails) information.</p>
+  <table border="1">
+    <tr>
+      <th>principal.roleCd</th>
+      <td>
+        <div sec:authentication="principal.roleCd"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.roleName</th>
+      <td>
+        <div sec:authentication="principal.roleName"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.credentialsExpiredFlg</th>
+      <td>
+        <div sec:authentication="principal.credentialsExpiredFlg"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.accountExpiredFlg</th>
+      <td>
+        <div sec:authentication="principal.accountExpiredFlg"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.accountLockedFlg</th>
+      <td>
+        <div sec:authentication="principal.accountLockedFlg"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.enabledFlg</th>
+      <td>
+        <div sec:authentication="principal.enabledFlg"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.createdAt</th>
+      <td>
+        <div sec:authentication="principal.createdAt"></div>
+      </td>
+    </tr>
+    <tr>
+      <th>principal.updatedAt</th>
+      <td>
+        <div sec:authentication="principal.updatedAt"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

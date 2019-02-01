@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Language" content="ja"/>
+  <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+  <style type="text/css">
+    h1 {
+      color: green;
+    }
+
+    p {
+      color: blue;
+    }
+
+    table th {
+      background-color: darkseagreen;
+    }
+  </style>
+</head>
+<body>
+
+<h1>This is html mail</h1>
+
+<table border="1">
+  <tr>
+    <th>key = hello</th>
+    <td>value = [[${hello}]]</td>
+  </tr>
+  <tr>
+    <th>list</th>
+    <td>[[${#strings.listJoin(list, ',')}]]</td>
+  </tr>
+</table>
+
+</body>
+</html>

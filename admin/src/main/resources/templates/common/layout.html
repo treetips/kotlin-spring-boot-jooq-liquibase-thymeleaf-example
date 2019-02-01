@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Spring Boot Sample Site</title>
+  <link rel="stylesheet" media="all" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin/">Admin</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/admin">Admin only page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/staff">Staff only page</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <a class="nav-link" href="/admin/logout">Logout</a>
+      </span>
+    </div>
+  </nav>
+</header>
+
+<div class="container-fluid">
+
+  <div class="col-lg-12">
+    <div layout:fragment="contents"></div>
+  </div>
+
+</div>
+
+<footer>
+  ©tree
+</footer>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>

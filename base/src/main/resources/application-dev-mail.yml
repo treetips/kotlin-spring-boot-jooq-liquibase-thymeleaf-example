@@ -1,0 +1,7 @@
+dev-mail:
+  protocol: "smtp"
+  host: "127.0.0.1"
+  port: 587
+  username: ""
+  password: ""
+  default-encoding: UTF-8

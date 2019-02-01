@@ -1,0 +1,17 @@
+{
+  "name": "kotlin-spring-boot-jooq-liquibase-thymeleaf-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "apidoc": "npm run apidoc:build && npm run apidoc:open",
+    "apidoc:build": "apidoc -f '.*kt$' -i api/src -o api/docs",
+    "apidoc:open": "open api/docs/index.html"
+  },
+  "keywords": [],
+  "author": "treetips <treetips555@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "apidoc": "^0.17.7"
+  }
+}

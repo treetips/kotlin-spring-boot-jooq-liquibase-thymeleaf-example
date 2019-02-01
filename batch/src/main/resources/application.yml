@@ -1,0 +1,113 @@
+---
+########################################################################
+#
+# Spring Boot setting
+#
+########################################################################
+#============================================================
+# Spring setting
+#============================================================
+spring:
+  profiles:
+    active: local
+    include: dev-mail,jooq,redis
+  main:
+    web-application-type: none
+  messages:
+    basename: i18n/messages
+  cache:
+    type: redis
+  datasource:
+    username: worker
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: ConnectionPool
+      leakDetectionThreshold: 20000
+      connection-test-query: select 1
+      minimum-idle: 5
+      maximum-pool-size: 1000
+      auto-commit: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+  session:
+    store-type: redis
+  jmx:
+    enabled: false
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      indent_output: true
+    dateFormat: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    time-zone: Asia/Tokyo
+  thymeleaf:
+    cache: true
+    enable-spring-el-compiler: true
+  jooq:
+    sql-dialect: mysql_8_0
+  liquibase:
+    enabled: false
+  batch:
+    initialize-schema: always
+    job:
+      enabled: false
+#============================================================
+# Server setting
+#============================================================
+server:
+  port: 8000
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+#============================================================
+# Cloud setting
+#============================================================
+cloud:
+  aws:
+    region:
+      static: us-west-2
+    credentials:
+      accessKey: TODO
+      secretKey: TODO
+#============================================================
+# Actuator setting
+#============================================================
+management:
+  server:
+    port: 18090
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    auditevents:
+      enabled: false
+    beans:
+      enabled: false
+    conditions:
+      enabled: false
+    configprops:
+      enabled: false
+    env:
+      enabled: false
+    loggers:
+      enabled: false
+
+#======================================================
+# Application setting
+#======================================================
+settings:
+  #-----------------------------------------
+  # Sample setting
+  #-----------------------------------------
+  sample:
+    test: "ハローワールド"

@@ -1,0 +1,24 @@
+### Gradle
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA
+.idea/*
+!.idea/codeStyles
+!.idea/codeInsightSettings.xml
+!.idea/dictionaries/dictionary.xml
+!.idea/inspectionProfiles
+*.iws
+*.ipr
+out
+
+### Docker
+docker/mysql/data
+
+### Application
+logs
+*/build
+api/docs
+node_modules
+yarn-error.log

@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'org.liquibase.gradle'
+
+ext {
+  dbUrl = getProperty('dbUrl')
+  dbUsername = getProperty('dbUsername')
+  dbPassword = getProperty('dbPassword')
+  dbSchema = getProperty('dbSchema')
+  mysqlConnectorName = getProperty('mysqlConnectorName')
+  mysqlConnectorVersion = getProperty('mysqlConnectorVersion')
+  liquibaseGradlePluginVersion = getProperty('liquibaseGradlePluginVersion')
+  liquibaseCoreVersion = getProperty('liquibaseCoreVersion')
+  liquibaseGroovyDsl = getProperty('liquibaseGroovyDsl')
+  liquibaseChengeLogPath = getProperty('liquibaseChengeLogPath')
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.liquibase:liquibase-gradle-plugin:${liquibaseGradlePluginVersion}"
+  }
+}
+
+dependencies {
+  liquibaseRuntime "org.liquibase:liquibase-core:${liquibaseCoreVersion}"
+  liquibaseRuntime "org.liquibase:liquibase-groovy-dsl:${liquibaseGroovyDsl}"
+  liquibaseRuntime "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+}
+
+liquibase {
+  activities {
+    main {
+      changeLogFile "${liquibaseChengeLogPath}"
+      driver "${mysqlConnectorName}"
+      url "${dbUrl}"
+      username "${dbUsername}"
+      password "${dbPassword}"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaProjectCodeInsightSettings">
+    <excluded-names>
+      <name>com.google.common.util.concurrent.AbstractService</name>
+      <name>com.sun.*</name>
+      <name>javax.swing.*</name>
+      <name>org.apache.commons.collections.*</name>
+      <name>org.apache.logging.log4j.*</name>
+      <name>org.assertj.core.util.Strings</name>
+      <name>org.omg.CORBA.*</name>
+      <name>org.springframework.cglib.core.CollectionUtils</name>
+      <name>org.springframework.lang.NonNull</name>
+      <name>org.springframework.lang.Nullable</name>
+      <name>org.yaml.snakeyaml.*</name>
+      <name>reactor.util.annotation.NonNull</name>
+      <name>reactor.util.annotation.Nullable</name>
+      <name>sun.*</name>
+    </excluded-names>
+  </component>
+</project>

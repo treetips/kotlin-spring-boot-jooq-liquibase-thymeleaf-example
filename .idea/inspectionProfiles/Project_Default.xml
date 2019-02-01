@@ -1,0 +1,67 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default"/>
+    <inspection_tool class="BlockMarkerComments" enabled="true" level="WARNING" enabled_by_default="true"/>
+    <inspection_tool class="BooleanMethodIsAlwaysInverted" enabled="false" level="WARNING" enabled_by_default="false"/>
+    <inspection_tool class="BooleanMethodNameMustStartWithQuestion" enabled="false" level="ERROR"
+                     enabled_by_default="false">
+      <option name="ignoreBooleanMethods" value="false"/>
+      <option name="ignoreInAnnotationInterface" value="true"/>
+      <option name="onlyWarnOnBaseMethods" value="true"/>
+      <option name="questionString"
+              value="add,are,can,check,contains,could,endsWith,equals,has,is,matches,must,put,remove,shall,should,startsWith,was,were,will,would"/>
+    </inspection_tool>
+    <inspection_tool class="CallToStringConcatCanBeReplacedByOperator" enabled="true" level="WARNING"
+                     enabled_by_default="true"/>
+    <inspection_tool class="ConfusingMainMethod" enabled="true" level="ERROR" enabled_by_default="true"/>
+    <inspection_tool class="ConstantConditions" enabled="true" level="WARNING" enabled_by_default="true">
+      <scope name="Tests" level="WARNING" enabled="false">
+        <option name="SUGGEST_NULLABLE_ANNOTATIONS" value="false"/>
+        <option name="DONT_REPORT_TRUE_ASSERT_STATEMENTS" value="false"/>
+      </scope>
+      <option name="SUGGEST_NULLABLE_ANNOTATIONS" value="false"/>
+      <option name="DONT_REPORT_TRUE_ASSERT_STATEMENTS" value="false"/>
+    </inspection_tool>
+    <inspection_tool class="DivideByZero" enabled="true" level="ERROR" enabled_by_default="true"/>
+    <inspection_tool class="EqualsCalledOnEnumConstant" enabled="true" level="WARNING" enabled_by_default="true"/>
+    <inspection_tool class="ExceptionNameDoesntEndWithException" enabled="true" level="ERROR"
+                     enabled_by_default="true"/>
+    <inspection_tool class="JavaModuleNaming" enabled="false" level="WARNING" enabled_by_default="false"/>
+    <inspection_tool class="ListIndexOfReplaceableByContains" enabled="true" level="WARNING" enabled_by_default="true"/>
+    <inspection_tool class="NonAsciiCharacters" enabled="true" level="WARNING" enabled_by_default="true">
+      <scope name="Tests" level="WARNING" enabled="true">
+        <option name="CHECK_FOR_NOT_ASCII_IDENTIFIER_NAME" value="false"/>
+        <option name="CHECK_FOR_DIFFERENT_LANGUAGES_IN_IDENTIFIER_NAME" value="false"/>
+        <option name="CHECK_FOR_FILES_CONTAINING_BOM" value="true"/>
+      </scope>
+      <option name="CHECK_FOR_FILES_CONTAINING_BOM" value="true"/>
+    </inspection_tool>
+    <inspection_tool class="NonBooleanMethodNameMayNotStartWithQuestion" enabled="true" level="WARNING"
+                     enabled_by_default="true">
+      <scope name="Tests" level="WARNING" enabled="false">
+        <option name="questionString"
+                value="add,are,can,check,contains,could,endsWith,equals,has,is,matches,must,put,remove,shall,should,startsWith,was,were,will,would"/>
+        <option name="ignoreBooleanMethods" value="false"/>
+        <option name="onlyWarnOnBaseMethods" value="true"/>
+      </scope>
+      <option name="questionString"
+              value="add,are,can,check,contains,could,endsWith,equals,has,is,matches,must,put,remove,shall,should,startsWith,was,were,will,would"/>
+      <option name="ignoreBooleanMethods" value="false"/>
+      <option name="onlyWarnOnBaseMethods" value="true"/>
+    </inspection_tool>
+    <inspection_tool class="NonExceptionNameEndsWithException" enabled="true" level="ERROR" enabled_by_default="true"/>
+    <inspection_tool class="SizeReplaceableByIsEmpty" enabled="true" level="WARNING" enabled_by_default="true"/>
+    <inspection_tool class="SpringJavaInjectionPointsAutowiringInspection" enabled="true" level="ERROR"
+                     enabled_by_default="true">
+      <scope name="Tests" level="INFORMATION" enabled="true"/>
+    </inspection_tool>
+    <inspection_tool class="SystemGC" enabled="true" level="WARNING" enabled_by_default="true"/>
+    <inspection_tool class="UNUSED_IMPORT" enabled="true" level="ERROR" enabled_by_default="true"/>
+    <inspection_tool class="UpperCaseFieldNameNotConstant" enabled="true" level="WARNING" enabled_by_default="true"/>
+    <inspection_tool class="WeakerAccess" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="SUGGEST_PACKAGE_LOCAL_FOR_MEMBERS" value="true"/>
+      <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="true"/>
+      <option name="SUGGEST_PRIVATE_FOR_INNERS" value="false"/>
+    </inspection_tool>
+  </profile>
+</component>

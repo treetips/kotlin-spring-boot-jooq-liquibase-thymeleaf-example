@@ -1,0 +1,122 @@
+---
+########################################################################
+#
+# Spring Boot setting
+#
+########################################################################
+#============================================================
+# Spring setting
+#============================================================
+spring:
+  profiles:
+    active: local
+    include: dev-mail,jooq,redis
+  messages:
+    basename: i18n/messages
+  cache:
+    type: redis
+  datasource:
+    username: worker
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: ConnectionPool
+      leakDetectionThreshold: 20000
+      connection-test-query: select 1
+      minimum-idle: 5
+      maximum-pool-size: 1000
+      auto-commit: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+  mail:
+    default-encoding: UTF-8
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          timeout: 30000
+          connectiontimeout: 30000
+          writetimeout: 30000
+  session:
+    store-type: redis
+    timeout: 1800
+  jmx:
+    enabled: false
+  thymeleaf:
+    enabled: true
+    cache: true
+    enable-spring-el-compiler: true
+    suffix: ""
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      indent_output: true
+  jooq:
+    sql-dialect: mysql_8_0
+  liquibase:
+    enabled: false
+#============================================================
+# Server setting
+#============================================================
+server:
+  port: 8090
+  compression:
+    enabled: true
+    mime-types: application/javascript,application/json,text/html,text/xml,text/plain,text/css,text/javascript
+#============================================================
+# Cloud setting
+#============================================================
+cloud:
+  aws:
+    region:
+      auto: true
+    credentials:
+      accessKey: TODO
+      secretKey: TODO
+
+#============================================================
+# Actuator setting
+#============================================================
+management:
+  server:
+    port: 18090
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    auditevents:
+      enabled: false
+    beans:
+      enabled: false
+    conditions:
+      enabled: false
+    configprops:
+      enabled: false
+    env:
+      enabled: false
+    loggers:
+      enabled: false
+  info:
+    git:
+      enabled: true
+      mode: full
+#======================================================
+# Application setting
+#======================================================
+settings:
+  #-----------------------------------------
+  # Sample setting
+  #-----------------------------------------
+  sample:
+    mail:
+      to: "test@example.com"

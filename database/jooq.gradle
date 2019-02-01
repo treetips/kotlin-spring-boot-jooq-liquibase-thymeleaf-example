@@ -1,0 +1,110 @@
+apply plugin: 'java'
+apply plugin: 'nu.studer.jooq'
+
+ext {
+  jooqVersion = getProperty('jooqVersion')
+  gradleJooqPluginVersion = getProperty('gradleJooqPluginVersion')
+  jaxbCoreVersion = getProperty('jaxbCoreVersion')
+  jaxbRuntimeVersion = getProperty('jaxbRuntimeVersion')
+  jaxbApiVersion = getProperty('jaxbApiVersion')
+  javaxActivationVersion = getProperty('javaxActivationVersion')
+  jooqTargetpackageName = getProperty('jooqTargetpackageName')
+  jooqOutputDir = getProperty('jooqOutputDir')
+  jooqBuildDir = getProperty('jooqBuildDir')
+  dbUrl = getProperty('dbUrl')
+  dbUsername = getProperty('dbUsername')
+  dbPassword = getProperty('dbPassword')
+  dbSchema = getProperty('dbSchema')
+  jooqExcludes = getProperty('jooqExcludes')
+  mysqlConnectorName = getProperty('mysqlConnectorName')
+  mysqlConnectorVersion = getProperty('mysqlConnectorVersion')
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+  dependencies {
+    classpath "nu.studer:gradle-jooq-plugin:${gradleJooqPluginVersion}"
+    // for java11
+    classpath "org.glassfish.jaxb:jaxb-core:${jaxbCoreVersion}"
+    classpath "org.glassfish.jaxb:jaxb-runtime:${jaxbRuntimeVersion}"
+  }
+}
+
+jooq {
+  version = "${jooqVersion}"
+  edition = 'OSS'
+  Example(sourceSets.main) {
+
+    jdbc {
+      driver = "${mysqlConnectorName}"
+      url = "${dbUrl}"
+      user = "${dbUsername}"
+      password = "${dbPassword}"
+    }
+
+    generator {
+      name = 'org.jooq.codegen.DefaultGenerator'
+      strategy {
+        name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+      }
+      database {
+        name = 'org.jooq.meta.mysql.MySQLDatabase'
+        inputSchema = "${dbSchema}"
+        outputSchema = "${dbSchema}"
+        excludes = "${jooqExcludes}"
+        forcedTypes {
+          // MySQL boolean => Java Boolean
+          forcedType {
+            name = 'BOOLEAN'
+            types = '(?i:TINYINT\\(3\\))'
+            expression = '.*_FLG'
+          }
+        }
+      }
+      generate {
+        relations = true
+        deprecated = false
+        records = true
+        immutablePojos = true
+        fluentSetters = true
+        daos = false
+        javaTimeTypes = true
+        validationAnnotations = true
+      }
+
+      target {
+        packageName = "${jooqTargetpackageName}"
+      }
+    }
+  }
+
+  dependencies {
+    jooqRuntime "org.jooq:jooq-codegen:${jooqVersion}"
+    jooqRuntime "org.jooq:jooq-meta:${jooqVersion}"
+    jooqRuntime "org.jooq:jooq:${jooqVersion}"
+    jooqRuntime "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+    // for java11
+    jooqRuntime "javax.xml.bind:jaxb-api:${jaxbApiVersion}"
+    jooqRuntime "javax.activation:javax.activation-api:${javaxActivationVersion}"
+    jooqRuntime "org.glassfish.jaxb:jaxb-core:${jaxbCoreVersion}"
+    jooqRuntime "org.glassfish.jaxb:jaxb-runtime:${jaxbRuntimeVersion}"
+  }
+}
+
+task gen(dependsOn: [clean, generateExampleJooqSchemaSource]) {
+  doLast {
+    File targetDir = new File(jooqOutputDir)
+    targetDir.deleteDir()
+    File jooqDir = new File(jooqBuildDir)
+    org.gradle.util.GFileUtils.copyDirectory(jooqDir, new File("src/main/java"))
+    jooqDir.deleteDir()
+  }
+}

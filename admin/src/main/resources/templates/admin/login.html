@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.ultraq.net.nz/thymeleaf/"
+>
+<head>
+  <title>Thymeleaf3 example !!</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Language" content="ja"/>
+  <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+</head>
+<body>
+
+<h1>Login page</h1>
+
+<table border="1">
+  <tr>
+    <th>username</th>
+    <th>username</th>
+    <th>role</th>
+  </tr>
+  <tr>
+    <td>admin</td>
+    <td>admin</td>
+    <td>ADMIN</td>
+  </tr>
+  <tr>
+    <td>staff</td>
+    <td>staff</td>
+    <td>STAFF</td>
+  </tr>
+</table>
+
+<form id="login-form" th:action="@{/admin/login}" action="/admin/login" method="post">
+  <input type="text" name="username" value="">
+  <input type="password" name="password" value="">
+  <input type="submit" value="login">
+</form>
+</body>
+</html>

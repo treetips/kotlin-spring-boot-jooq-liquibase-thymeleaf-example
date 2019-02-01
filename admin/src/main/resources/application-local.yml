@@ -1,0 +1,24 @@
+---
+########################################################################
+#
+# Spring Boot setting - for local
+#
+########################################################################
+#============================================================
+# Spring setting
+#============================================================
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/work?nullNamePatternMatchesAll=true&zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=utf8&jdbcCompliantTruncation=false&useSSL=false
+    password: worker
+  thymeleaf:
+    cache: false
+  session:
+    timeout: 600
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      auto: false
+      static: ap-northeast-1
