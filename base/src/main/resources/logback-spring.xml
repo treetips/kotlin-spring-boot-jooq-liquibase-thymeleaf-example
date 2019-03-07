@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+  <!-- expression -->
+  <!--
+  @see https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml
+  @see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html#boot-features-logging-color-coded-output
+  -->
+  <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+  <conversionRule conversionWord="wex"
+                  converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+  <conversionRule conversionWord="wEx"
+                  converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
 
-  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <include resource="org/springframework/boot/logging/logback/default.xml"/>
   <timestamp key="LOG_DATE" datePattern="yyyyMMdd"/>
 
   <!-- Listener -->
   <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
   <!-- Property -->
-  <property scope="context" name="LOG_FORMAT" value="%date %-5level [%thread] [%class:%line] %message%n"/>
+  <property scope="context" name="LOG_FORMAT"
+            value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%clr(${PID:- }){magenta}] [%clr(%15.15t){magenta}] [%clr(%5X{x-test}){yellow}] [%clr(%-110.110logger{110}){cyan}] %message%n"/>
 
   <!-- Appender -->
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%highlight(${LOG_FORMAT})</pattern>
+      <pattern>${LOG_FORMAT}</pattern>
     </encoder>
   </appender>
 
