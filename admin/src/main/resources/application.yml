@@ -85,8 +85,6 @@ cloud:
 # Actuator setting
 #============================================================
 management:
-  server:
-    port: 18090
   endpoints:
     web:
       exposure:
