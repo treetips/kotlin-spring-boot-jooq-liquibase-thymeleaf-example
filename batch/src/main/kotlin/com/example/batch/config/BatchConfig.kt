@@ -2,6 +2,7 @@ package com.example.batch.config
 
 import com.example.batch.batch.Sample1Batch
 import com.example.batch.batch.Sample2Batch
+import com.example.batch.batch.SampleReadCsvBatch
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
@@ -29,4 +30,8 @@ class BatchConfig {
   @Bean
   @ConditionalOnProperty(value = [VM_OPTION], havingValue = "Sample2Batch")
   fun sample2Batch() = Sample2Batch()
+
+  @Bean
+  @ConditionalOnProperty(value = [VM_OPTION], havingValue = "SampleReadCsvBatch")
+  fun sampleReadCsvBatch() = SampleReadCsvBatch()
 }
