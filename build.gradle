@@ -10,6 +10,8 @@ buildscript {
     awsSdkVersion = getProperty("aws.sdk.version")
     thymeleafLayoutDialectVersion = getProperty("thymeleaf.layout.dialect.version")
     thymeleafExtrasSpringsecurity5Version = getProperty("thymeleaf.extras.springsecurity5.version")
+    superCsvVersion = getProperty("super-csv.version")
+    superCsvAnnotationVersion = getProperty("super-csv-annotation.version")
   }
   repositories {
     jcenter()
@@ -89,6 +91,9 @@ allprojects {
     runtime("mysql:mysql-connector-java:${mysqlConnectorJavaVersion}")
     // database migration
     compile("org.liquibase:liquibase-core")
+    // csv
+    compile("net.sf.supercsv:super-csv:${superCsvVersion}")
+    compile("com.github.mygreen:super-csv-annotation:${superCsvAnnotationVersion}")
 
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("io.projectreactor:reactor-test")
