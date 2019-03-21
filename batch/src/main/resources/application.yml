@@ -50,6 +50,7 @@ spring:
   thymeleaf:
     cache: true
     enable-spring-el-compiler: true
+    suffix: ""
   jooq:
     sql-dialect: mysql_8_0
   liquibase:
