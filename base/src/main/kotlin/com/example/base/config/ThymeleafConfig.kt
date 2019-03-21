@@ -3,6 +3,7 @@ package com.example.base.config
 import nz.net.ultraq.thymeleaf.LayoutDialect
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect
 import org.thymeleaf.spring5.SpringTemplateEngine
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver
 
@@ -22,5 +23,6 @@ class ThymeleafConfig(
   fun springTemplateEngine(): SpringTemplateEngine = SpringTemplateEngine().apply {
     addTemplateResolver(springResourceTemplateResolver)
     addDialect(layoutDialect())
+    addDialect(Java8TimeDialect())
   }
 }

@@ -9,6 +9,7 @@ buildscript {
     commonsDbcp2Version = getProperty("commons.dbcp2.version")
     awsSdkVersion = getProperty("aws.sdk.version")
     thymeleafLayoutDialectVersion = getProperty("thymeleaf.layout.dialect.version")
+    thymeleafExtrasThymeleafExtrasJava8timeVersion = getProperty("thymeleaf.extras.thymeleaf-extras-java8time.version")
     thymeleafExtrasSpringsecurity5Version = getProperty("thymeleaf.extras.springsecurity5.version")
     superCsvVersion = getProperty("super-csv.version")
     superCsvAnnotationVersion = getProperty("super-csv-annotation.version")
@@ -19,9 +20,6 @@ buildscript {
     maven { url 'https://repo.spring.io/libs-snapshot' }
     maven { url 'https://repo.spring.io/snapshot' }
     maven { url 'https://repo.spring.io/milestone' }
-//    maven {
-//      url 'https://oss.sonatype.org/content/repositoriesorg.jetbrains.kotlinx.kotlinx-coroutines-core/snapshots/'
-//    }
     maven { url "https://plugins.gradle.org/m2/" }
   }
   dependencies {
@@ -86,6 +84,7 @@ allprojects {
     compile("com.amazonaws:aws-java-sdk-ses:${awsSdkVersion}")
     // template engine
     compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutDialectVersion}")
+    compile("org.thymeleaf.extras:thymeleaf-extras-java8time:${thymeleafExtrasThymeleafExtrasJava8timeVersion}")
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity5:${thymeleafExtrasSpringsecurity5Version}")
     // driver
     runtime("mysql:mysql-connector-java:${mysqlConnectorJavaVersion}")

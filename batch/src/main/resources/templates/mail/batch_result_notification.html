@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Language" content="ja"/>
+  <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+  <style>
+    html, body {
+      width: 100%;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .row {
+      max-width: 800px;
+    }
+
+    /** バッチ実行結果：成功 */
+    .batch-success {
+      color: green;
+    }
+
+    /** バッチ実行結果：失敗 */
+    .batch-failure {
+      color: red;
+    }
+
+    .section-title {
+      font-size: 30px;
+      font-weight: bold;
+      color: navy;
+    }
+
+    pre.stackTrace {
+      border: solid 1px gray;
+      padding: 5px;
+      width: 800px;
+    }
+
+    table.result-table {
+      border-collapse: collapse;
+      width: 800px;
+    }
+
+    table.result-table th {
+      width: 150px;
+    }
+
+    table.result-table th, .result-table td {
+      border: solid 1px gray;
+      padding: 5px;
+    }
+
+    table.local th {
+      background-color: gainsboro;
+    }
+
+    table.development th {
+      background-color: bisque;
+    }
+
+    table.staging th {
+      background-color: lavender;
+    }
+
+    table.production th {
+      background-color: mistyrose;
+    }
+  </style>
+</head>
+<body>
+
+<section class="main-container">
+  <div class="row">
+    <h1 class="section-title"
+        th:text="${'🔎' + batchResultModel.getBatchName() + ' result'}">
+    </h1>
+
+    <table class="result-table"
+           th:classappend="${batchResultModel.getActiveProfile()}">
+      <tr>
+        <th>name</th>
+        <td th:text="${batchResultModel.getBatchName()}"></td>
+      </tr>
+      <tr>
+        <th>stage</th>
+        <td th:text="${batchResultModel.getActiveProfile()}"></td>
+      </tr>
+      <tr>
+        <th>result</th>
+        <td>
+          <span class="batch-success" th:if="${batchResultModel.getBatchResult()}">success</span>
+          <span class="batch-failure" th:unless="${batchResultModel.getBatchResult()}">failure</span>
+        </td>
+      </tr>
+      <tr>
+        <th>Start time</th>
+        <td th:text="*{#temporals.format(batchResultModel.getStartDateTime(), 'yyyy/MM/dd HH:mm:ss.SSS')}"></td>
+      </tr>
+      <tr>
+        <th>End time</th>
+        <td th:text="${#temporals.format(batchResultModel.getEndDateTime(), 'yyyy/MM/dd HH:mm:ss.SSS')}"></td>
+      </tr>
+      <tr>
+        <th>Elapsed time</th>
+        <td th:text="${#temporals.format(batchResultModel.getEndDateTime(), 'dd/MMM/yyyy HH:mm')}"></td>
+      </tr>
+    </table>
+
+    <div th:if="${batchResultModel.getAppendNotificationMap()}">
+      <h1 class="section-title">🔎More information</h1>
+
+      <table class="result-table" th:classappend="${batchResultModel.getActiveProfile()}">
+        <tr th:each="entry : ${batchResultModel.getAppendNotificationMap()}">
+          <th th:text="${entry.getKey()}"></th>
+          <td th:text="${entry.getValue()}"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div th:if="${batchResultModel.getStackTrace()}">
+      <h1 class="section-title">🔺StackTrace</h1>
+
+      <pre class="stackTrace" th:text="${batchResultModel.getStackTrace()}"></pre>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
