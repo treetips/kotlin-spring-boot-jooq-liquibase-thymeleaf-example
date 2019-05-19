@@ -42,7 +42,7 @@ sourceCompatibility = jdkVersion
 
 allprojects {
   apply plugin: 'maven'
-  apply plugin: 'java'
+  apply plugin: 'java-library'
   apply plugin: 'kotlin'
   apply plugin: 'kotlin-spring'
   apply plugin: 'idea'
@@ -56,47 +56,45 @@ allprojects {
 
   dependencies {
     // kotlin
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}")
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${kotlinCoroutinesVersion}")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${kotlinCoroutinesVersion}")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     // spring boot
-    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-cache:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-redis-reactive:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-jooq:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-cache:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-jooq:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
     // spring
-    compile("org.springframework.session:spring-session-data-redis:${springBootVersion}")
+    implementation("org.springframework.session:spring-session-data-redis:${springBootVersion}")
     // cloud
-    compile("org.springframework.cloud:spring-cloud-starter-aws:${springCloudVersion}")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:${springCloudVersion}")
     // datasource
-    compile("org.apache.commons:commons-dbcp2:${commonsDbcp2Version}")
+    implementation("org.apache.commons:commons-dbcp2:${commonsDbcp2Version}")
     // aws sdk
-    compile("com.amazonaws:aws-java-sdk-sts:${awsSdkVersion}")
-    compile("com.amazonaws:aws-java-sdk-s3:${awsSdkVersion}")
-    compile("com.amazonaws:aws-java-sdk-ses:${awsSdkVersion}")
+    implementation("com.amazonaws:aws-java-sdk-sts:${awsSdkVersion}")
+    implementation("com.amazonaws:aws-java-sdk-s3:${awsSdkVersion}")
+    implementation("com.amazonaws:aws-java-sdk-ses:${awsSdkVersion}")
     // template engine
-    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutDialectVersion}")
-    compile("org.thymeleaf.extras:thymeleaf-extras-java8time:${thymeleafExtrasThymeleafExtrasJava8timeVersion}")
-    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity5:${thymeleafExtrasSpringsecurity5Version}")
+    implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutDialectVersion}")
+    implementation("org.thymeleaf.extras:thymeleaf-extras-java8time:${thymeleafExtrasThymeleafExtrasJava8timeVersion}")
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity5:${thymeleafExtrasSpringsecurity5Version}")
     // driver
     runtime("mysql:mysql-connector-java:${mysqlConnectorJavaVersion}")
-    // database migration
-    compile("org.liquibase:liquibase-core")
     // csv
-    compile("net.sf.supercsv:super-csv:${superCsvVersion}")
-    compile("com.github.mygreen:super-csv-annotation:${superCsvAnnotationVersion}")
+    implementation("net.sf.supercsv:super-csv:${superCsvVersion}")
+    implementation("com.github.mygreen:super-csv-annotation:${superCsvAnnotationVersion}")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    testCompile("io.projectreactor:reactor-test")
-    testCompile("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.springframework.security:spring-security-test")
   }
 
   configurations {
@@ -123,11 +121,15 @@ allprojects {
 project(':database') {
   bootJar.enabled = false
   jar.enabled = true
+  dependencies {
+    // database migration
+    implementation("org.liquibase:liquibase-core")
+  }
 }
 
 project(':base') {
   dependencies {
-    compile project(':database')
+    api project(':database')
   }
   bootJar.enabled = false
   jar.enabled = true
@@ -135,7 +137,7 @@ project(':base') {
 
 project(':api') {
   dependencies {
-    compile project(':base')
+    implementation project(':base')
   }
   bootJar {
     launchScript()
@@ -144,9 +146,9 @@ project(':api') {
 
 project(':batch') {
   dependencies {
-    compile project(':base')
-    compile('org.springframework.boot:spring-boot-starter-batch')
-    testCompile('org.springframework.batch:spring-batch-test')
+    implementation project(':base')
+    implementation('org.springframework.boot:spring-boot-starter-batch')
+    testImplementation('org.springframework.batch:spring-batch-test')
   }
   bootJar {
     launchScript()
@@ -155,7 +157,7 @@ project(':batch') {
 
 project(':admin') {
   dependencies {
-    compile project(':base')
+    implementation project(':base')
   }
   bootJar {
     launchScript()
