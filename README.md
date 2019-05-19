@@ -2,10 +2,10 @@
 
 ## Features
 
-* kotlin v1.3.20
-* Gradle v5.1
+* kotlin v1.3
+* Gradle v5.4
 * Java v11
-* Spring boot v2.1.2
+* Spring boot v2.1
 * jOOQ (ORM)
 * Liquibase
 * thymeleaf v3
