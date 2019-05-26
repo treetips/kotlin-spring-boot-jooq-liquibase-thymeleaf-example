@@ -20,7 +20,8 @@ class SecurityConfig {
       //--------------------------------------------------------
       .pathMatchers(
         "/actuator/**",
-        "/api/**"
+        "/api/**",
+        "/sample/**"
       ).permitAll()
       .and().csrf().disable()
     return httpSecurity.build()

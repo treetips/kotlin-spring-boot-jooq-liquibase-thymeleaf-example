@@ -83,7 +83,7 @@ class ApiExceptionHandler : WebExceptionHandler {
     return when (httpStatus) {
       HttpStatus.BAD_REQUEST -> {
         ServerResponse.status(httpStatus).body(
-          fromObject(validations ?: mapOf())
+          fromObject(validations ?: mapOf("errors" to e.message))
         )
       }
       HttpStatus.NOT_FOUND -> {

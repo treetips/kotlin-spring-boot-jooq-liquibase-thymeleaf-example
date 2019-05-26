@@ -22,6 +22,7 @@
 
 * Webflux
 * Router function
+* Bean validation for router function
 * jOOQ ORM
 * Repository cache for redis
 
@@ -87,7 +88,7 @@ $ sdk list java | grep zulu
 sdk install java 11.0.2-zulu
 ```
 
-### Install docker for mac
+### Install docker desktop
 
 https://docs.docker.com/docker-for-mac/install/
 
@@ -165,6 +166,24 @@ jOOQ generate java files by initialized database.
 Right click on `com.example.api.ApiApplication.kt` -> Run.
 
 Browse `http://localhost:8080/api/prefecture/`
+
+#### Test router function with bean validation
+
+```sh
+# not blank
+curl \
+  -XPOST \
+  -H 'Content-Type:application/json' \
+  -d '{"id":""}' \
+  "http://localhost:8080/sample/validation/bean-validation/"
+
+# max
+curl \
+  -XPOST \
+  -H 'Content-Type:application/json' \
+  -d '{"id":"999"}' \
+  "http://localhost:8080/sample/validation/bean-validation/"
+```
 
 ### Start Admin
 
