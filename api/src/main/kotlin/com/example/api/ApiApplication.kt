@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScans
 @ComponentScans(
   ComponentScan("com.example.base.service"),
   ComponentScan("com.example.base.repository"),
+  ComponentScan("com.example.base.router"),
   ComponentScan("com.example.base.setting"),
   ComponentScan("com.example.base.config")
 )
