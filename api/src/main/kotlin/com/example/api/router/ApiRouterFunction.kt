@@ -106,6 +106,7 @@ class ApiRouterFunction(
       GET("/send-html-mail/", sampleApiRouterHandler::handleSendHtmlMail)
       GET("/send-multipart-mail/", sampleApiRouterHandler::handleSendMultipartMail)
       POST("/recieve-json-request/", sampleApiRouterHandler::handleJsonRequest)
+      POST("/validation/bean-validation/", sampleApiRouterHandler::handleBeanValidation)
     }
   }
 }
